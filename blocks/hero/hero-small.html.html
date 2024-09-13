@@ -1,0 +1,90 @@
+<!--/*
+*  ***********************************************************************
+*  SCIEX CONFIDENTIAL
+*  ___________________
+*
+*  Copyright 2024 SCIEX
+*  All Rights Reserved.
+*
+*  NOTICE:  All information contained herein is, and remains the property
+*  of SCIEX and its suppliers, if any. The intellectual and
+*  technical concepts contained herein are proprietary to SCIEX
+*  and its suppliers and are protected by trade secret or copyright law.
+*  Dissemination of this information or reproduction of this material
+*  is strictly forbidden unless prior written permission is obtained
+*  from SCIEX.
+*  ***********************************************************************
+*/-->
+
+<sly data-sly-use.HeroSmall="com.sciex.core.models.sling.v3.HeroSmall"
+     data-sly-test.configured="${HeroSmall.bgImage || HeroSmall.bgVideo || HeroSmall.heading}">
+
+     <!--/* Includes */-->
+     <sly data-sly-use.linkbuttons="../../includes/link-buttons/regular.html" />
+     <sly data-sly-use.links="../../includes/links/links.html" />
+     <sly data-sly-use.icon="../../includes/icons/icons24.html" />
+
+  
+<div class="${properties.bottomPadding ? properties.bottomPadding : 'tw-pb-32 md:tw-pb-48'}">
+    <section
+    id="${HeroSmall.id}"
+    class="tw-relative tw-bg-cover tw-bg-center tw-bg-no-repeat ${properties.heroType == 'colour' ? 'tw-bg-grey-50' : ''}">
+    
+    <!--/* optional image */-->
+    <sly data-sly-test="${HeroSmall.bgImage.fileReference && properties.heroType == 'image'}">
+        <div class="tw-relative tw-min-h-[420px] md:tw-min-h-[512px]">
+        <img class="tw-absolute tw-object-cover tw-h-full tw-w-full tw-z-0" src="${HeroSmall.bgImage.fileReference @context='text'}"/>
+    </sly>
+
+    <!--/* optional video */-->
+    <sly data-sly-test="${HeroSmall.bgVideo.fileReference && properties.heroType == 'video'}">
+    <div class="tw-relative tw-min-h-[420px] md:tw-min-h-[512px]">
+    <video class="tw-absolute tw-object-cover tw-h-full tw-w-full tw-z-0" preload="auto" autoplay loop muted playsinline>
+      <source src="${HeroSmall.bgVideo.fileReference @context='text'}">
+    </video>
+    </sly>
+
+    
+
+        <!--/* optional overlay */-->
+        <div data-sly-test="${HeroSmall.bgImageOverlay}" class="overlay tw-absolute tw-bg-black tw-opacity-40 tw-top-0 tw-left-0 tw-right-0 tw-bottom-0 tw-z-0"></div>
+        <div class="tw-relative ${properties.heroType == 'colour' ? 'md:tw-container' : 'tw-container'} tw-py-40 md:tw-pb-64 tw-flex tw-items-end tw-w-full tw-min-h-[420px] md:tw-min-h-[512px] tw-z-10 ${properties.heroType == 'colour' ? 'md:tw-pt-64' : 'md:tw-pt-80'}">
+            <div class="tw-flex tw-flex-col md:tw-flex-row tw-justify-between tw-w-full tw-items-end ${properties.heroType == 'colour' ? 'tw-text-grey-900 md:tw-flex-row-reverse' : 'tw-text-white'}">
+                
+                <div data-sly-test="${properties.heroType == 'colour'}" class="tw-flex tw-justify-center tw-items-center tw-px-64 md:tw-px-0">
+                    <img class="tw-mt-40 tw-aspect-square md:tw-my-0 lg:tw-mx-0 tw-flex-1 sm:tw-max-w-416 sm:tw-max-h-416"
+                        alt="" src="${HeroSmall.image.fileReference @context='text'}">
+                </div>
+            
+                <div class="tw-w-full ${properties.heroType == 'colour' ? 'tw-mt-48 lg:tw-mt-0 tw-flex-1 tw-px-24 md:tw-px-0':''}">
+                    <div class="tw-flex tw-items-center" data-sly-test="${HeroSmall.caption || (properties.icon && properties.icon != 'empty')}">
+                        <span class="tw-mr-8" data-sly-test="${properties.icon && properties.icon != 'empty' && properties.heroType != 'colour'}"><sly data-sly-call="${icon[properties.icon] @color='#ffffff'}" /></span>
+                        <span class="tw-mr-8" data-sly-test="${properties.icon && properties.icon != 'empty' && properties.heroType == 'colour'}"><sly data-sly-call="${icon[properties.icon] @color='#000000'}" /></span>
+                        <span class="text-sm-bolder" data-sly-test="${HeroSmall.caption}">${HeroSmall.caption}</span>
+                    </div>
+                    <h1 class="text-bravo lg:tw-max-w-9/12 xl:tw-max-w-8/12 tw-mt-16 md:tw-mt-20 ${properties.heroType == 'colour' ? 'w-full':'lg:tw-max-w-9/12 xl:tw-max-w-8/12'}" data-sly-test="${HeroSmall.heading}">${HeroSmall.heading}</h1>
+                    <div class="atomic-richtext-content text-base tw-mt-16 md:tw-mt-20 lg:tw-max-w-6/12 xl:tw-max-w-5/12 ${properties.heroType == 'colour' ? 'tw-text-grey-500 xl:tw-max-w-9/12 lg:tw-max-w-11/12 tw-max-w-full':'xl:tw-max-w-5/12 lg:tw-max-w-6/12'}"  data-sly-test="${HeroSmall.textArea}">${HeroSmall.textArea @ context='html'}</div>
+                    <div class="md:tw-flex md:tw-items-center md:tw-space-x-16">
+                        <div class="tw-mt-16 md:tw-mt-20" data-sly-test="${HeroSmall.primaryBtnLabel && HeroSmall.primaryBtnDestination}">
+                            <sly data-sly-call="${linkbuttons.primary @ text=HeroSmall.primaryBtnLabel, href=HeroSmall.primaryBtnDestination, target=HeroSmall.primaryBtnTarget, additionalClasses='tw-w-full md:tw-w-auto', tracking=HeroSmall.primaryBtnTracking}" />
+                        </div>
+                        <div class="tw-mt-16 md:tw-mt-20" data-sly-test="${HeroSmall.secondaryBtnLabel && HeroSmall.secondaryBtnDestination}">
+                            <sly data-sly-test="${properties.heroType != 'colour'}" data-sly-call="${linkbuttons.quinary @ text=HeroSmall.secondaryBtnLabel, href=HeroSmall.secondaryBtnDestination, target=HeroSmall.secondaryBtnTarget, additionalClasses='tw-w-full md:tw-w-auto', tracking=HeroSmall.secondaryBtnTracking}" />
+                            <sly data-sly-test="${properties.heroType == 'colour'}" data-sly-call="${linkbuttons.secondary @ text=HeroSmall.secondaryBtnLabel, href=HeroSmall.secondaryBtnDestination, target=HeroSmall.secondaryBtnTarget, additionalClasses='tw-w-full md:tw-w-auto', tracking=HeroSmall.secondaryBtnTracking}" />
+                        </div>
+                        <div class="tw-mt-16 md:tw-mt-20" data-sly-test="${HeroSmall.textLinkLabel && HeroSmall.textLinkDestination}">
+                            <sly data-sly-test="${properties.heroType != 'colour'}" data-sly-call="${links.secondary @ text=HeroSmall.textLinkLabel, href=HeroSmall.textLinkDestination, target=HeroSmall.textLinkTarget, tracking=HeroSmall.textLinkTracking}" />
+                            <sly data-sly-test="${properties.heroType == 'colour'}" data-sly-call="${links.primary @ text=HeroSmall.textLinkLabel, href=HeroSmall.textLinkDestination, target=HeroSmall.textLinkTarget, tracking=HeroSmall.textLinkTracking}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+  </section>
+  </div>
+</sly>
+
+<!--/* Authoring page placeholder */-->
+<sly data-sly-use.templates="core/wcm/components/commons/v1/templates.html"
+     data-sly-call="${templates.placeholder @ isEmpty = !configured}" />
